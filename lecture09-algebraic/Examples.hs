@@ -24,7 +24,8 @@ data List a = Nil
   deriving (Eq, Ord, Show)
 
 mymap :: (a -> b) -> List a -> List b
-mymap = error "mymap unimplemented"
+map _ []     = []          -- Base case: Empty list returns an empty list
+map f (x:xs) = f x : map f xs  -- Apply function `f` to the head and recurse
 
 prop_map_inc :: Bool
 prop_map_inc = mymap (\x -> x + 1) (Cons 1 (Cons 2 (Cons 3 (Cons 4 Nil)))) == (Cons 2 (Cons 3 (Cons 4 (Cons 5 Nil))))
